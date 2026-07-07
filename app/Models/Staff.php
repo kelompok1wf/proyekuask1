@@ -16,4 +16,8 @@ class Staff extends Model
         'kontak_staff',
         'password',
     ];
+
+    protected $hidden = [
+        'password',
+    ];
 }

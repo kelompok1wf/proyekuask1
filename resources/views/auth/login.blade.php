@@ -19,15 +19,15 @@
 
             <div class="p-8">
                 @if(session('error'))
-                    <div class="bg-red-100 text-red-700 px-4 py-3 rounded-lg mb-5">
-                        {{ session('error') }}
-                    </div>
+                <div class="bg-red-100 text-red-700 px-4 py-3 rounded-lg mb-5">
+                    {{ session('error') }}
+                </div>
                 @endif
 
                 @if(session('success'))
-                    <div class="bg-green-100 text-green-700 px-4 py-3 rounded-lg mb-5">
-                        {{ session('success') }}
-                    </div>
+                <div class="bg-green-100 text-green-700 px-4 py-3 rounded-lg mb-5">
+                    {{ session('success') }}
+                </div>
                 @endif
 
                 <form action="{{ route('login.proses') }}" method="POST">
@@ -52,6 +52,17 @@
                         Login
                     </button>
                 </form>
+
+                <div class="text-center mt-5">
+
+                    <a href="{{ url('/') }}"
+                        class="text-red-500 hover:underline">
+
+                        ← Kembali ke Pilihan Login
+
+                    </a>
+
+                </div>
             </div>
         </div>
 
