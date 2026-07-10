@@ -37,100 +37,101 @@
             <div class="mb-8">
                 <a href="{{ route('dashboard.pemilik') }}"
                     class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition">
-                    ← Kembali ke Dashboard
+                    Kembali ke Dashboard
                 </a>
             </div>
 
             @if($staff->isEmpty())
-                <div class="bg-white rounded-lg shadow-md p-12 text-center">
-                    <div class="text-gray-400 mb-4">
-                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 20h5v-2a3 3 0 00-5.856-1.487M15 10a3 3 0 11-6 0 3 3 0 016 0zM6 20a3 3 0 003-3v-2a3 3 0 00-3-3H3a3 3 0 00-3 3v2a3 3 0 003 3h3z">
-                            </path>
-                        </svg>
-                    </div>
-
-                    <p class="text-gray-500 text-lg mb-6">
-                        Belum ada data staff
-                    </p>
-
-                    <a href="{{ route('staff.create') }}"
-                        class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition">
-                        Buat Staff Pertama
-                    </a>
+            <div class="bg-white rounded-lg shadow-md p-12 text-center">
+                <div class="text-gray-400 mb-4">
+                    <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.856-1.487M15 10a3 3 0 11-6 0 3 3 0 016 0zM6 20a3 3 0 003-3v-2a3 3 0 00-3-3H3a3 3 0 00-3 3v2a3 3 0 003 3h3z">
+                        </path>
+                    </svg>
                 </div>
+
+                <p class="text-gray-500 text-lg mb-6">
+                    Belum ada data staff
+                </p>
+
+                <a href="{{ route('staff.create') }}"
+                    class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition">
+                    Buat Staff Pertama
+                </a>
+            </div>
             @else
-                <div class="grid gap-6">
-                    @foreach($staff as $item)
-                        <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden">
-                            <div class="bg-gradient-to-r from-red-400 to-orange-400 h-1"></div>
+            <div class="grid gap-6">
+                @foreach($staff as $item)
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden">
+                    <div class="bg-gradient-to-r from-red-400 to-orange-400 h-1"></div>
 
-                            <div class="p-6">
-                                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6">
+                    <div class="p-6">
+                        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6">
 
-                                    <!-- Staff Info -->
-                                    <div class="flex-1">
-                                        <div class="flex items-center gap-4 mb-5">
-                                            <div
-                                                class="w-14 h-14 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center shadow-md">
-                                                <span class="text-white font-bold text-xl">
-                                                    {{ strtoupper(substr($item->nama_staff, 0, 1)) }}
-                                                </span>
-                                            </div>
-
-                                            <div>
-                                                <h3 class="text-2xl font-bold text-gray-800">
-                                                    {{ $item->nama_staff }}
-                                                </h3>
-                                                <p class="text-gray-500">
-                                                    ID: {{ $item->id_staff }}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-4">
-                                            <div>
-                                                <p class="text-sm text-gray-500 mb-1">Role</p>
-                                                <span
-                                                    class="inline-block bg-yellow-100 text-yellow-800 px-4 py-1 rounded-full text-sm font-semibold">
-                                                    {{ $item->role_staff }}
-                                                </span>
-                                            </div>
-
-                                            <div>
-                                                <p class="text-sm text-gray-500 mb-1">Kontak</p>
-                                                <p class="font-semibold text-gray-800">
-                                                    {{ $item->kontak_staff ?? '-' }}
-                                                </p>
-                                            </div>
-                                        </div>
+                            <!-- Staff Info -->
+                            <div class="flex-1">
+                                <div class="flex items-center gap-4 mb-5">
+                                    <div
+                                        class="w-14 h-14 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center shadow-md">
+                                        <span class="text-white font-bold text-xl">
+                                            {{ strtoupper(substr($item->nama_staff, 0, 1)) }}
+                                        </span>
                                     </div>
 
-                                    <!-- Action Buttons -->
-                                    <div class="flex gap-3 lg:pt-2">
-                                        <a href="{{ route('staff.edit', $item->id_staff) }}"
-                                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-lg transition shadow">
-                                            Edit
-                                        </a>
+                                    <div>
+                                        <h3 class="text-2xl font-bold text-gray-800">
+                                            {{ $item->nama_staff }}
+                                        </h3>
 
-                                        <form action="{{ route('staff.destroy', $item->id_staff) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
+                                        <p class="text-gray-500">
+                                            Kode Staff: ST{{ str_pad($item->id_staff, 3, '0', STR_PAD_LEFT) }}
+                                        </p>
+                                    </div>
+                                </div>
 
-                                            <button type="submit"
-                                                onclick="return confirm('Yakin ingin menghapus {{ $item->nama_staff }}?')"
-                                                class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-5 rounded-lg transition shadow">
-                                                Hapus
-                                            </button>
-                                        </form>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-4">
+                                    <div>
+                                        <p class="text-sm text-gray-500 mb-1">Role</p>
+                                        <span
+                                            class="inline-block bg-yellow-100 text-yellow-800 px-4 py-1 rounded-full text-sm font-semibold">
+                                            {{ $item->role_staff }}
+                                        </span>
                                     </div>
 
+                                    <div>
+                                        <p class="text-sm text-gray-500 mb-1">Kontak</p>
+                                        <p class="font-semibold text-gray-800">
+                                            {{ $item->kontak_staff ?? '-' }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex gap-3 lg:pt-2">
+                                <a href="{{ route('staff.edit', $item->id_staff) }}"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-lg transition shadow">
+                                    Edit
+                                </a>
+
+                                <form action="{{ route('staff.destroy', $item->id_staff) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                        onclick="return confirm('Yakin ingin menghapus {{ $item->nama_staff }}?')"
+                                        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-5 rounded-lg transition shadow">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+
                         </div>
-                    @endforeach
+                    </div>
                 </div>
+                @endforeach
+            </div>
             @endif
 
         </div>

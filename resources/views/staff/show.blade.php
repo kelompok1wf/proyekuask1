@@ -71,7 +71,7 @@
                     <!-- Action Buttons -->
                     <div class="flex gap-4 pt-6 border-t-2 border-gray-100">
                         <a href="{{ route('staff.edit', $staff->id_staff) }}" class="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105 shadow-lg text-center">
-                            ✏️ Edit Staff
+                            Edit Staff
                         </a>
                         <a href="{{ route('staff.index') }}" class="flex-1 bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-lg transition text-center">
                             ← Kembali

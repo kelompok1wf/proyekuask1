@@ -49,9 +49,9 @@
                         </label>
                         <select name="role_staff" class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 transition" required>
                             <option value="" disabled selected>Pilih role staff</option>
-                            <option value="Pelayan">👨‍💼 Pelayan</option>
-                            <option value="Koki">👨‍🍳 Koki</option>
-                            <option value="Kasir">💰 Kasir</option>
+                            <option value="Pelayan">Pelayan</option>
+                            <option value="Koki">Koki</option>
+                            <option value="Kasir">Kasir</option>
                         </select>
                     </div>
 
@@ -83,10 +83,10 @@
                     <!-- Buttons -->
                     <div class="flex gap-4">
                         <button type="submit" class="flex-1 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105 shadow-lg">
-                            💾 Simpan Staff
+                            Simpan Staff
                         </button>
                         <a href="{{ route('staff.index') }}" class="flex-1 bg-gray-400 hover:bg-gray-500 text-white font-bold py-3 px-6 rounded-lg transition text-center">
-                            ❌ Batal
+                            Batal
                         </a>
                     </div>
                 </form>
