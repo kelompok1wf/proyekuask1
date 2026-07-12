@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrderSystemController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminDashboardController;
 
 // KITA PENGKAUM KEMBALI KE URL /login YANG NORMAL
 Route::get('/', function() {
@@ -27,4 +28,9 @@ Route::middleware(['web'])->group(function () {
         session()->flush(); // Mengosongkan SEMUA session (termasuk nadita & keranjang) tanpa sisa!
         return redirect('/login'); // Lempar balik ke login awal
     })->name('logout');
+
+    // Jalur khusus Owner / Admin (Bisa diakses lewat url: 127.0.0.1:8000/owner/dashboard)
+    Route::prefix('owner')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('owner.dashboard');
+    });
 });
