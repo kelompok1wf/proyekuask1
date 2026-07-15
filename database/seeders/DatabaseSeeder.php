@@ -10,13 +10,18 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
+
     public function run(): void
     {
-    $this->call([
-        MenuSeeder::class,
-    ]);
+
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
+
+        $this->call([
+            MenuSeeder::class,
+        ]);
     }
 }
