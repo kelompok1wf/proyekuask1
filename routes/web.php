@@ -1,17 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderSystemController;
 use App\Http\Controllers\StaffController;
 
 
-/*
-|--------------------------------------------------------------------------
-| HALAMAN AWAL
-|--------------------------------------------------------------------------
-*/
+// =============================
+// HALAMAN AWAL
+// =============================
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,11 +16,10 @@ Route::get('/', function () {
 
 
 
-/*
-|--------------------------------------------------------------------------
-| LOGIN PELANGGAN
-|--------------------------------------------------------------------------
-*/
+
+// =============================
+// LOGIN PELANGGAN
+// =============================
 
 Route::get('/login', [OrderSystemController::class, 'showLogin'])
     ->name('login');
@@ -35,13 +31,9 @@ Route::post('/login', [OrderSystemController::class, 'processLogin'])
 
 
 
-
-/*
-|--------------------------------------------------------------------------
-| SISTEM PEMESANAN PELANGGAN
-|--------------------------------------------------------------------------
-*/
-
+// =============================
+// SISTEM PEMESANAN PELANGGAN
+// =============================
 
 Route::get('/menu', [OrderSystemController::class, 'showMenu'])
     ->name('menu');
@@ -59,7 +51,6 @@ Route::post('/cart/update/{id}', [OrderSystemController::class, 'updateCart'])
     ->name('cart.update.item');
 
 
-
 Route::get('/checkout', [OrderSystemController::class, 'showCheckout'])
     ->name('checkout');
 
@@ -74,34 +65,23 @@ Route::get('/receipt/{id}', [OrderSystemController::class, 'showReceipt'])
 
 
 
-
-/*
-|--------------------------------------------------------------------------
-| LOGOUT PELANGGAN
-|--------------------------------------------------------------------------
-*/
-
+// =============================
+// LOGOUT PELANGGAN
+// =============================
 
 Route::get('/logout/pelanggan', function () {
 
     session()->flush();
 
     return redirect()->route('login');
-    
 })->name('pelanggan.logout');
 
 
 
 
-
-
-
-/*
-|--------------------------------------------------------------------------
-| LOGIN PEMILIK
-|--------------------------------------------------------------------------
-*/
-
+// =============================
+// LOGIN PEMILIK
+// =============================
 
 Route::get('/login/pemilik', [LoginController::class, 'showLogin'])
     ->name('login.pemilik');
@@ -113,14 +93,9 @@ Route::post('/login/pemilik', [LoginController::class, 'prosesLogin'])
 
 
 
-
-
-/*
-|--------------------------------------------------------------------------
-| LOGIN STAFF
-|--------------------------------------------------------------------------
-*/
-
+// =============================
+// LOGIN STAFF
+// =============================
 
 Route::get('/login/staff', [LoginController::class, 'showLoginStaff'])
     ->name('login.staff');
@@ -132,23 +107,19 @@ Route::post('/login/staff', [LoginController::class, 'prosesLoginStaff'])
 
 
 
+// =============================
+// LOGOUT PEMILIK & STAFF
+// =============================
 
-
-
-/*
-|--------------------------------------------------------------------------
-| LOGOUT PEMILIK & STAFF
-|--------------------------------------------------------------------------
-*/
 Route::post('/logout', [LoginController::class, 'logout'])
     ->name('logout');
 
-/*
-|--------------------------------------------------------------------------
-| DASHBOARD PEMILIK
-|--------------------------------------------------------------------------
-*/
 
+
+
+// =============================
+// DASHBOARD PEMILIK
+// =============================
 
 Route::middleware('pemilik')->group(function () {
 
@@ -160,22 +131,8 @@ Route::middleware('pemilik')->group(function () {
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | CRUD STAFF
-    |--------------------------------------------------------------------------
-    */
-
-
     Route::resource('staff', StaffController::class);
 
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | LAPORAN PENJUALAN
-    |--------------------------------------------------------------------------
-    */
 
 
     Route::get('/laporan/penjualan', function () {
@@ -187,15 +144,9 @@ Route::middleware('pemilik')->group(function () {
 
 
 
-
-
-
-/*
-|--------------------------------------------------------------------------
-| DASHBOARD STAFF
-|--------------------------------------------------------------------------
-*/
-
+// =============================
+// DASHBOARD STAFF
+// =============================
 
 Route::get(
     '/dashboard/pelayan',
@@ -203,12 +154,10 @@ Route::get(
 )->name('dashboard.pelayan');
 
 
-
 Route::get(
     '/dashboard/koki',
     [LoginController::class, 'dashboardKoki']
 )->name('dashboard.koki');
-
 
 
 Route::get(
