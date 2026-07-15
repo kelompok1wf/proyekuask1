@@ -85,7 +85,7 @@ class LoginController extends Controller
     {
         if (!session()->has('id_pemilik') || session('role') !== 'Pemilik') {
 
-            return redirect()->route('login')
+            return redirect()->route('login.pemilik')
                 ->with('error', 'Silakan login sebagai pemilik terlebih dahulu.');
         }
 
@@ -115,7 +115,6 @@ class LoginController extends Controller
             if (session('role_staff') === 'Kasir') {
                 return redirect()->route('dashboard.kasir');
             }
-
         }
 
 
@@ -176,7 +175,6 @@ class LoginController extends Controller
             if ($staff->role_staff === 'Kasir') {
                 return redirect()->route('dashboard.kasir');
             }
-
         }
 
 
@@ -233,9 +231,6 @@ class LoginController extends Controller
         return view('dashboard.kasir');
     }
 
-
-
-
     // LOGOUT
     public function logout(Request $request)
     {
@@ -251,7 +246,7 @@ class LoginController extends Controller
         // logout staff
         if ($roleStaff) {
 
-            return redirect()->route('login.staff')
+            return redirect()->route('home')
                 ->with('success', 'Berhasil logout.');
         }
 
@@ -260,13 +255,12 @@ class LoginController extends Controller
         // logout pemilik
         if ($role === 'Pemilik') {
 
-            return redirect()->route('login')
+            return redirect()->route('home')
                 ->with('success', 'Berhasil logout.');
         }
 
 
 
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
-
 }

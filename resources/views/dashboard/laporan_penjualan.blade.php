@@ -35,7 +35,7 @@
 
 
                         <p class="text-orange-100 mt-2 text-lg">
-                            Ringkasan laporan penjualan restoran
+                            Ringkasan laporan penjualan restoran Ayam Geprek Bossku!
                         </p>
 
 
