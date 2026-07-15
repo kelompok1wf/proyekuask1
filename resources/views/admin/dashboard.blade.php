@@ -156,43 +156,75 @@
 @endsection
 
 @section('scripts')
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
     const ctx = document.getElementById('salesChart').getContext('2d');
+
+
     new Chart(ctx, {
+
         type: 'line',
+
         data: {
-            labels: {
-                !!json_encode($chartLabels) !!
-            },
+
+            labels: @json($chartLabels),
+
             datasets: [{
+
                 label: 'Omzet Penjualan (Rp)',
-                data: {
-                    !!json_encode($chartValues) !!
-                },
+
+                data: @json($chartValues),
+
                 backgroundColor: 'rgba(255, 78, 80, 0.05)',
+
                 borderColor: '#ff4e50',
+
                 borderWidth: 3,
+
                 tension: 0.35,
+
                 fill: true,
+
                 pointBackgroundColor: '#ff761b',
+
                 pointRadius: 3
+
             }]
+
         },
+
+
         options: {
+
             responsive: true,
+
             maintainAspectRatio: false,
+
             scales: {
+
                 y: {
+
                     beginAtZero: true,
+
                     ticks: {
+
                         callback: function(value) {
+
                             return 'Rp ' + value.toLocaleString('id-ID');
+
                         }
+
                     }
+
                 }
+
             }
+
         }
+
     });
 </script>
+
 @endsection
