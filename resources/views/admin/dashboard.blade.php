@@ -21,7 +21,6 @@
         Kembali ke Dashboard
 
     </a>
-
     <!-- Button Keren Seperti Sebelumnya -->
     <button onclick="window.print()" class="btn px-4 py-2 fw-bold text-white shadow-sm" style="background: linear-gradient(135deg, #ff5722, #ff9800); border: none; border-radius: 8px;">
         <i class="fa-solid fa-print me-2"></i> Cetak Laporan
@@ -157,86 +156,43 @@
 @endsection
 
 @section('scripts')
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        const canvas = document.getElementById('salesChart');
-
-        if (canvas) {
-
-            const ctx = canvas.getContext('2d');
-
-
-            new Chart(ctx, {
-
-                type: 'line',
-
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {
+                !!json_encode($chartLabels) !!
+            },
+            datasets: [{
+                label: 'Omzet Penjualan (Rp)',
                 data: {
-
-                    labels: @json($chartLabels),
-
-                    datasets: [{
-
-                        label: 'Omzet Penjualan (Rp)',
-
-                        data: @json($chartValues),
-
-                        backgroundColor: 'rgba(255, 78, 80, 0.05)',
-
-                        borderColor: '#ff4e50',
-
-                        borderWidth: 3,
-
-                        tension: 0.35,
-
-                        fill: true,
-
-                        pointBackgroundColor: '#ff761b',
-
-                        pointRadius: 3
-
-                    }]
-
+                    !!json_encode($chartValues) !!
                 },
-
-
-                options: {
-
-                    responsive: true,
-
-                    maintainAspectRatio: false,
-
-
-                    scales: {
-
-                        y: {
-
-                            beginAtZero: true,
-
-                            ticks: {
-
-                                callback: function(value) {
-
-                                    return 'Rp ' + value.toLocaleString('id-ID');
-
-                                }
-
-                            }
-
+                backgroundColor: 'rgba(255, 78, 80, 0.05)',
+                borderColor: '#ff4e50',
+                borderWidth: 3,
+                tension: 0.35,
+                fill: true,
+                pointBackgroundColor: '#ff761b',
+                pointRadius: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return 'Rp ' + value.toLocaleString('id-ID');
                         }
-
                     }
-
                 }
-
-            });
-
+            }
         }
-
     });
 </script>
-
 @endsection

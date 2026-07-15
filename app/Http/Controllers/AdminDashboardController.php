@@ -98,7 +98,7 @@ class AdminDashboardController extends Controller
             }
         }
 
-        return view('dashboard.laporan_penjualan', compact(
+        return view('admin.dashboard', compact(
             'totalPendapatan', 'pesananSukses', 'pelangganUnik', 
             'topMenus', 'riwayatPesanan', 'chartLabels', 'chartValues', 'filter'
         ));
