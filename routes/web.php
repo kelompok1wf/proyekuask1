@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderSystemController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\AdminDashboardController;
 
 
 // =============================
@@ -135,10 +136,13 @@ Route::middleware('pemilik')->group(function () {
 
 
 
-    Route::get('/laporan/penjualan', function () {
 
-        return view('dashboard.laporan_penjualan');
-    })->name('laporan.penjualan');
+
+    Route::get('/laporan/penjualan', [
+        AdminDashboardController::class,
+        'index'
+    ])
+        ->name('laporan.penjualan');
 });
 
 
