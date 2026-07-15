@@ -4,9 +4,19 @@ namespace Database\Seeders;
 
 use App\Models\Menu;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema; // Ambil baris ini jangan sampai tertinggal
 
 class MenuSeeder extends Seeder {
     public function run(): void {
+        // 1. Matikan pengecekan foreign key sementara
+        Schema::disableForeignKeyConstraints();
+
+        // 2. Kosongkan tabel menus dengan aman tanpa diomelin database
+        Menu::truncate();
+
+        // 3. Nyalakan kembali pengecekan foreign key demi keamanan data ke depan
+        Schema::enableForeignKeyConstraints();
+
         $menus = [
             // KATEGORI: PAKET
             [
