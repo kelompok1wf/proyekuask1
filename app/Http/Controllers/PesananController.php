@@ -34,22 +34,21 @@ class PesananController extends Controller
             return redirect()->back()->with('error', 'Keranjang belanja kosong!');
         }
 
-        $masterMenu = $this->getMasterMenu();
-        $detailPesananArray = [];
+        $menus = $this->getMasterMenu();
+        $detailArray = [];
         $totalHarga = 0;
 
         foreach ($cartItems as $id => $qty) {
-            
-            $menuKey = array_search($id, array_column($masterMenu, 'id'));
-            if ($menuKey !== false) {
-                $produk = $masterMenu[$menuKey];
-                $subtotal = $produk['price'] * $qty;
+            $key = array_search($id, array_column($menus, 'id'));
+            if ($key !== false) {
+                $item = $menus[$key];
+                $subtotal = $item['price'] * $qty;
                 $totalHarga += $subtotal;
 
-                $detailPesananArray[] = [
-                    'nama' => $produk['name'],
+                $detailArray[] = [
+                    'nama' => $item['name'],
                     'qty' => $qty,
-                    'harga' => $produk['price'],
+                    'harga' => $item['price'],
                     'subtotal' => $subtotal
                 ];
             }
@@ -81,11 +80,9 @@ class PesananController extends Controller
         return view('pembayaran.nota', compact('pesanan', 'details'));
     }
 
-    // --- FITUR DAPUR KOKI ---
+    // --- PANEL BACKOFFICE DAPUR KOKI ---
     public function indexDapur() {
-        $pesanans = Pesanan::with('pelanggan')
-            ->whereIn('status_pesanan', ['Diterima', 'Sedang Dibuat', 'Sudah Dibuat'])
-            ->get();
+        $pesanans = Pesanan::with('pelanggan')->orderBy('created_at', 'desc')->get();
         return view('dapur.index', compact('pesanans'));
     }
 

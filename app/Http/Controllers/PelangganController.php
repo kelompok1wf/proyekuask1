@@ -11,6 +11,16 @@ class PelangganController extends Controller
         return view('pelanggan.welcome');
     }
 
+    public function register(Request $request) {
+        $layanan = $request->query('layanan');
+        
+        if (!in_repeat($layanan, ['dine-in', 'take-away'])) {
+            $layanan = 'dine-in'; 
+        }
+
+        return view('pelanggan.register', compact('layanan'));
+    }
+
     public function store(Request $request) {
         $request->validate([
             'nama_pelanggan' => 'required|string|max:100',
@@ -23,7 +33,7 @@ class PelangganController extends Controller
             'jenis_layanan' => $request->jenis_layanan,
             'no_meja' => $request->jenis_layanan == 'dine-in' ? $request->no_meja : null,
         ]);
-        
+
         session([
             'id_pelanggan' => $pelanggan->id_pelanggan,
             'nama_pelanggan' => $pelanggan->nama_pelanggan,
