@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\OrderSystemController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StaffController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderSystemController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\AdminDashboardController;
 
 
 // =============================
@@ -24,8 +25,57 @@ Route::get('/', function () {
 Route::get('/login', [OrderSystemController::class, 'showLogin'])
     ->name('login');
 
+
 Route::post('/login', [OrderSystemController::class, 'processLogin'])
     ->name('login.process');
+
+
+
+
+// =============================
+// SISTEM PEMESANAN PELANGGAN
+// =============================
+
+Route::get('/menu', [OrderSystemController::class, 'showMenu'])
+    ->name('menu');
+
+
+Route::post('/cart/add', [OrderSystemController::class, 'addToCart'])
+    ->name('cart.add');
+
+
+Route::post('/cart/update', [OrderSystemController::class, 'updateCart'])
+    ->name('cart.update');
+
+
+Route::post('/cart/update/{id}', [OrderSystemController::class, 'updateCart'])
+    ->name('cart.update.item');
+
+
+Route::get('/checkout', [OrderSystemController::class, 'showCheckout'])
+    ->name('checkout');
+
+
+Route::post('/checkout/process', [OrderSystemController::class, 'processOrder'])
+    ->name('checkout.process');
+
+
+Route::get('/receipt/{id}', [OrderSystemController::class, 'showReceipt'])
+    ->name('receipt');
+
+
+
+
+// =============================
+// LOGOUT PELANGGAN
+// =============================
+
+Route::get('/logout/pelanggan', function () {
+
+    session()->flush();
+
+    return redirect()->route('login');
+})->name('pelanggan.logout');
 
 
 
@@ -36,6 +86,7 @@ Route::post('/login', [OrderSystemController::class, 'processLogin'])
 
 Route::get('/login/pemilik', [LoginController::class, 'showLogin'])
     ->name('login.pemilik');
+
 
 Route::post('/login/pemilik', [LoginController::class, 'prosesLogin'])
     ->name('login.pemilik.proses');
@@ -58,7 +109,7 @@ Route::post('/login/staff', [LoginController::class, 'prosesLoginStaff'])
 
 
 // =============================
-// LOGOUT STAFF & PEMILIK
+// LOGOUT PEMILIK & STAFF
 // =============================
 
 Route::post('/logout', [LoginController::class, 'logout'])
@@ -68,52 +119,31 @@ Route::post('/logout', [LoginController::class, 'logout'])
 
 
 // =============================
-// LOGOUT PELANGGAN
-// =============================
-
-Route::get('/logout/pelanggan', function () {
-
-    session()->flush();
-
-    return redirect()->route('login');
-
-})->name('pelanggan.logout');
-
-
-
-
-// =============================
 // DASHBOARD PEMILIK
 // =============================
 
-Route::get('/dashboard/pemilik', [LoginController::class, 'dashboardPemilik'])
-    ->name('dashboard.pemilik')
-    ->middleware('pemilik');
+Route::middleware('pemilik')->group(function () {
+
+
+    Route::get(
+        '/dashboard/pemilik',
+        [LoginController::class, 'dashboardPemilik']
+    )->name('dashboard.pemilik');
+
+
+
+    Route::resource('staff', StaffController::class);
 
 
 
 
-// =============================
-// LAPORAN PENJUALAN
-// =============================
 
-Route::get('/laporan/penjualan', function () {
-
-    return view('dashboard.laporan_penjualan');
-
-})
-->name('laporan.penjualan')
-->middleware('pemilik');
-
-
-
-
-// =============================
-// CRUD STAFF
-// =============================
-
-Route::resource('staff', StaffController::class)
-    ->middleware('pemilik');
+    Route::get('/laporan/penjualan', [
+        AdminDashboardController::class,
+        'index'
+    ])
+        ->name('laporan.penjualan');
+});
 
 
 
@@ -122,47 +152,58 @@ Route::resource('staff', StaffController::class)
 // DASHBOARD STAFF
 // =============================
 
-Route::get('/dashboard/pelayan', [LoginController::class, 'dashboardPelayan'])
-    ->name('dashboard.pelayan');
+Route::get(
+    '/dashboard/pelayan',
+    [LoginController::class, 'dashboardPelayan']
+)->name('dashboard.pelayan');
 
 
-Route::get('/dashboard/koki', [LoginController::class, 'dashboardKoki'])
-    ->name('dashboard.koki');
+Route::get(
+    '/dashboard/koki',
+    [LoginController::class, 'dashboardKoki']
+)->name('dashboard.koki');
 
 
-Route::get('/dashboard/kasir', [LoginController::class, 'dashboardKasir'])
-    ->name('dashboard.kasir');
+Route::get(
+    '/dashboard/kasir',
+    [LoginController::class, 'dashboardKasir']
+)->name('dashboard.kasir');
 
 
+Route::post(
+    '/pesanan/{id}/konfirmasi',
+    [LoginController::class, 'konfirmasiPesanan']
+)->name('pesanan.konfirmasi');
 
 
-// =============================
-// SISTEM PELANGGAN
-// =============================
-
-Route::get('/menu', [OrderSystemController::class, 'showMenu'])
-    ->name('menu');
+Route::post(
+    '/pesanan/{id}/mulai-masak',
+    [LoginController::class, 'mulaiMasak']
+)->name('pesanan.mulaiMasak');
 
 
-Route::post('/cart/add', [OrderSystemController::class, 'addToCart'])
-    ->name('cart.add');
+Route::post(
+    '/pesanan/{id}/selesai-masak',
+    [LoginController::class, 'selesaiMasak']
+)
+    ->name('pesanan.selesaiMasak');
 
 
-Route::post('/cart/update', [OrderSystemController::class, 'updateCart'])
-    ->name('cart.update');
+Route::post(
+    '/pesanan/{id}/antar',
+    [LoginController::class, 'antarPesanan']
+)
+    ->name('pesanan.antar');
 
 
-Route::post('/cart/update/{id}', [OrderSystemController::class, 'updateCart']);
+Route::get(
+    '/pembayaran/{id}',
+    [LoginController::class, 'halamanPembayaran']
+)
+    ->name('pembayaran');
 
-
-
-Route::get('/checkout', [OrderSystemController::class, 'showCheckout'])
-    ->name('checkout');
-
-
-Route::post('/checkout/process', [OrderSystemController::class, 'processOrder'])
-    ->name('checkout.process');
-
-
-Route::get('/receipt/{id}', [OrderSystemController::class, 'showReceipt'])
-    ->name('receipt');
+Route::post(
+    '/pembayaran/{id}/selesai',
+    [LoginController::class, 'pembayaranSelesai']
+)
+    ->name('pembayaran.selesai');

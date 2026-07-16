@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,32 +15,38 @@
             display: flex;
             justify-content: center;
         }
+
         .mobile-container {
             width: 100%;
             max-width: 420px;
             background: #ffffff;
             min-height: 100vh;
-            padding: 24px 20px 100px 20px; /* Padding bawah extra untuk sticky cart */
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 24px 20px 100px 20px;
+            /* Padding bawah extra untuk sticky cart */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             position: relative;
         }
+
         .header-area {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 20px;
         }
+
         .header-title {
             font-weight: 800;
             font-size: 24px;
             color: #222;
             margin: 0;
         }
+
         .welcome-text {
             color: #777;
             font-size: 14px;
             margin-top: 5px;
         }
+
         .badge-meja {
             background-color: #f99500;
             color: white;
@@ -49,6 +56,7 @@
             font-size: 14px;
             box-shadow: 0 4px 10px rgba(249, 149, 0, 0.2);
         }
+
         .section-title {
             font-weight: 700;
             font-size: 16px;
@@ -57,6 +65,7 @@
             display: flex;
             align-items: center;
         }
+
         .section-title::before {
             content: "";
             display: inline-block;
@@ -66,6 +75,7 @@
             border-radius: 2px;
             margin-right: 8px;
         }
+
         /* Card Menu Gaya Horisontal */
         .menu-card {
             display: flex;
@@ -74,9 +84,10 @@
             border-radius: 18px;
             padding: 14px;
             margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
             align-items: center;
         }
+
         .menu-img-wrapper {
             width: 85px;
             height: 85px;
@@ -89,9 +100,11 @@
             margin-right: 14px;
             flex-shrink: 0;
         }
+
         .menu-info {
             flex-grow: 1;
         }
+
         .menu-name {
             font-weight: 700;
             font-size: 15px;
@@ -99,6 +112,7 @@
             margin-bottom: 4px;
             line-height: 1.3;
         }
+
         .menu-desc {
             font-size: 11px;
             color: #888;
@@ -108,16 +122,19 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .menu-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .menu-price {
             font-weight: 800;
             font-size: 15px;
             color: #c92c2c;
         }
+
         /* Tombol Kuantitas */
         .qty-counter {
             display: flex;
@@ -126,6 +143,7 @@
             border-radius: 20px;
             padding: 2px;
         }
+
         .btn-qty {
             width: 28px;
             height: 28px;
@@ -138,15 +156,18 @@
             font-weight: 700;
             transition: all 0.2s;
         }
+
         .btn-minus {
             background-color: transparent;
             color: #555;
         }
+
         .btn-plus {
             background-color: #c92c2c;
             color: white;
             box-shadow: 0 2px 6px rgba(201, 44, 44, 0.3);
         }
+
         .qty-number {
             font-weight: 700;
             font-size: 13px;
@@ -154,32 +175,43 @@
             min-width: 24px;
             text-align: center;
         }
+
         /* Sticky Bottom Bar untuk Lihat Keranjang */
         .sticky-cart-bar {
             position: fixed;
             bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+
             width: 100%;
             max-width: 420px;
+
             background: #ffffff;
             border-top: 1px solid #f1f1f1;
             padding: 16px 20px;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             border-radius: 24px 24px 0 0;
-            box-shadow: 0 -6px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.04);
+
             z-index: 999;
         }
+
         .cart-info-text {
             font-size: 12px;
             color: #777;
             margin-bottom: 2px;
         }
+
         .cart-total-price {
             font-weight: 800;
             font-size: 18px;
             color: #222;
         }
+
         .btn-view-cart {
             background: linear-gradient(90deg, #ff4e50, #ff761b);
             border: none;
@@ -195,36 +227,37 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="mobile-container">
-    <!-- Header Area -->
-    <div class="header-area">
-        <div>
-            <div style="font-size: 20px; margin-bottom: 4px;">🔥</div>
-            <h1 class="header-title">Menu Utama</h1>
-            <div class="welcome-text">Selamat Datang, <strong>{{ session('customer')['name'] ?? 'Pelanggan' }}</strong>!</div>
+    <div class="mobile-container">
+        <!-- Header Area -->
+        <div class="header-area">
+            <div>
+                <div style="font-size: 20px; margin-bottom: 4px;">🔥</div>
+                <h1 class="header-title">Menu Utama</h1>
+                <div class="welcome-text">Selamat Datang, <strong>{{ session('customer')['name'] ?? 'Pelanggan' }}</strong>!</div>
+            </div>
+            <div class="badge-meja">
+                <i class="fa-solid fa-location-dot me-1"></i> Meja {{ session('customer')['table_number'] ?? '00' }}
+            </div>
         </div>
-        <div class="badge-meja">
-            <i class="fa-solid fa-location-dot me-1"></i> Meja {{ session('customer')['table_number'] ?? '00' }}
-        </div>
-    </div>
 
-    <!-- Section Title -->
-    <div class="section-title">Hidangan Spesial</div>
+        <!-- Section Title -->
+        <div class="section-title">Hidangan Spesial</div>
 
-    <!-- List Menu Makanan -->
-    <div class="menu-list">
-        @forelse($menus as $menu)
+        <!-- List Menu Makanan -->
+        <div class="menu-list">
+            @forelse($menus as $menu)
             <div class="menu-card">
                 <div class="menu-img-wrapper">
                     <!-- Icon otomatis berubah berdasarkan kategori menu -->
                     @if(Str::lower($menu->category) == 'minuman')
-                        <i class="fa-solid fa-glass-water" style="color: #17a2b8;"></i>
+                    <i class="fa-solid fa-glass-water" style="color: #17a2b8;"></i>
                     @elseif(Str::lower($menu->category) == 'paket')
-                        <i class="fa-solid fa-box" style="color: #ffc107;"></i>
+                    <i class="fa-solid fa-box" style="color: #ffc107;"></i>
                     @else
-                        🍗
+                    🍗
                     @endif
                 </div>
                 <div class="menu-info">
@@ -232,7 +265,7 @@
                     <div class="menu-desc">{{ $menu->description }}</div>
                     <div class="menu-meta">
                         <div class="menu-price">Rp {{ number_format($menu->price, 0, ',', '.') }}</div>
-                        
+
                         <!-- Form Tambah/Kurang Kuantitas langsung integrasi backend -->
                         <div class="qty-counter">
                             <form action="/cart/update/{{ $menu->id }}" method="POST" style="display:inline;">
@@ -240,11 +273,11 @@
                                 <input type="hidden" name="action" value="decrease">
                                 <button type="submit" class="btn-qty btn-minus">-</button>
                             </form>
-                            
+
                             <span class="qty-number">
                                 {{ session('cart')[$menu->id]['quantity'] ?? 0 }}
                             </span>
-                            
+
                             <form action="/cart/update/{{ $menu->id }}" method="POST" style="display:inline;">
                                 @csrf
                                 <input type="hidden" name="action" value="increase">
@@ -255,33 +288,34 @@
                     </div>
                 </div>
             </div>
-        @empty
+            @empty
             <div class="text-center py-5 text-muted">Belum ada menu di database.</div>
-        @endforelse
-    </div>
+            @endforelse
+        </div>
 
-    <!-- Sticky Bottom Cart (Otomatis Menghitung Total Harga & Item dari Session) -->
-    @php
+        <!-- Sticky Bottom Cart (Otomatis Menghitung Total Harga & Item dari Session) -->
+        @php
         $totalItems = 0;
         $totalPrice = 0;
         if(session('cart')) {
-            foreach(session('cart') as $item) {
-                $totalItems += $item['quantity'];
-                $totalPrice += $item['price'] * $item['quantity'];
-            }
+        foreach(session('cart') as $item) {
+        $totalItems += $item['quantity'];
+        $totalPrice += $item['price'] * $item['quantity'];
         }
-    @endphp
+        }
+        @endphp
 
-    <div class="sticky-cart-bar">
-        <div>
-            <div class="cart-info-text">{{ $totalItems }} Menu Terpilih</div>
-            <div class="cart-total-price">Rp {{ number_format($totalPrice, 0, ',', '.') }}</div>
+        <div class="sticky-cart-bar">
+            <div>
+                <div class="cart-info-text">{{ $totalItems }} Menu Terpilih</div>
+                <div class="cart-total-price">Rp {{ number_format($totalPrice, 0, ',', '.') }}</div>
+            </div>
+            <a href="/checkout" class="btn-view-cart">
+                Lihat Keranjang <i class="fa-solid fa-basket-shopping ms-2"></i>
+            </a>
         </div>
-        <a href="/checkout" class="btn-view-cart">
-            Lihat Keranjang <i class="fa-solid fa-basket-shopping ms-2"></i>
-        </a>
     </div>
-</div>
 
 </body>
+
 </html>

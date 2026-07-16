@@ -121,7 +121,7 @@
 
 
 
-                    <form action="{{ route('login.proses') }}" method="POST" class="space-y-5">
+                    <form action="{{ route('login.pemilik.proses') }}" method="POST" class="space-y-5">
 
 
                         @csrf
@@ -166,21 +166,11 @@
                             focus:border-red-500
                             transition
                             ">
-
-
-
                         </div>
-
-
-
-
-
 
                         <!-- PASSWORD -->
 
-
                         <div>
-
 
                             <label class="
                         block

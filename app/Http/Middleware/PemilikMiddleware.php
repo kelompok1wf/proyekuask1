@@ -11,7 +11,7 @@ class PemilikMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (!session()->has('id_pemilik') || session('role') !== 'Pemilik') {
-            return redirect()->route('login')->with('error', 'Silakan login sebagai pemilik terlebih dahulu.');
+            return redirect()->route('login.pemilik')->with('error', 'Silakan login sebagai pemilik terlebih dahulu.');
         }
 
         return $next($request);
