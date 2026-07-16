@@ -2,11 +2,17 @@
 <html lang="id">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dashboard Kasir - Ayam Geprek Bossku</title>
 
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 </head>
 
 
@@ -16,38 +22,43 @@
     <div class="min-h-screen">
 
 
+
         <!-- NAVBAR -->
 
         <nav class="bg-white border-b border-gray-200 shadow-sm">
 
+
             <div class="max-w-7xl mx-auto px-8 py-3 flex justify-between items-center">
 
 
-                <!-- LOGO -->
+                <div class="flex items-center gap-3">
 
-                <div class="flex items-center gap-1">
 
                     <img
                         src="{{ asset('images/logo-bossku.png') }}"
-                        class="w-30 h-15 object-contain">
+                        class="w-16 h-16 object-contain">
 
 
                     <div>
 
                         <h1 class="
-                text-2xl
-                font-black
-                text-red-600
-                ">
+text-2xl
+font-black
+text-red-600
+">
+
                             Ayam Geprek Bossku
+
                         </h1>
 
 
                         <p class="
-                text-sm
-                text-gray-500
-                ">
+text-sm
+text-gray-500
+">
+
                             Service Management System
+
                         </p>
 
 
@@ -60,30 +71,23 @@
 
 
 
-                <!-- PROFILE -->
-
                 <div class="flex items-center gap-6">
 
 
                     <div class="text-right">
 
-                        <p class="
-                text-lg
-                font-bold
-                text-gray-800
-                ">
+
+                        <p class="text-lg font-bold text-gray-800">
 
                             {{ session('nama_staff') }}
 
                         </p>
 
 
-                        <p class="
-                text-sm
-                font-bold
-                text-red-600
-                ">
+                        <p class="text-sm font-bold text-red-600">
+
                             KASIR
+
                         </p>
 
 
@@ -95,19 +99,19 @@
 
                         @csrf
 
+
                         <button
                             class="
-                bg-red-50
-                text-red-600
-                px-6
-                py-3
-                rounded-xl
-                font-bold
-                shadow-sm
-                hover:bg-red-600
-                hover:text-white
-                transition
-                ">
+bg-red-50
+text-red-600
+px-6
+py-3
+rounded-xl
+font-bold
+hover:bg-red-600
+hover:text-white
+transition
+">
 
                             Logout
 
@@ -122,6 +126,7 @@
 
             </div>
 
+
         </nav>
 
 
@@ -129,7 +134,8 @@
 
 
 
-        <!-- TITLE -->
+        <!-- HEADER -->
+
 
         <section class="max-w-7xl mx-auto px-8 pt-8 pb-5">
 
@@ -165,14 +171,15 @@ mt-2
 
 
 
+        <!-- BOARD -->
 
-        <!-- CONTENT -->
 
         <main class="
 max-w-7xl
 mx-auto
 px-8
 grid
+grid-cols-1
 md:grid-cols-3
 gap-8
 ">
@@ -181,17 +188,15 @@ gap-8
 
 
 
-            <!-- MENUNGGU PEMBAYARAN -->
+            <!-- ==========================
+MENUNGGU PEMBAYARAN
+========================== -->
+
 
             <section>
 
 
-                <div class="
-flex
-items-center
-gap-3
-mb-5
-">
+                <div class="flex items-center gap-3 mb-5">
 
 
                     <span class="
@@ -205,11 +210,10 @@ bg-red-500
                     <h3 class="
 text-xl
 font-black
-text-gray-800
 uppercase
 ">
 
-                        MENUNGGU PEMBAYARAN
+                        Menunggu Pembayaran
 
                     </h3>
 
@@ -224,19 +228,23 @@ uppercase
 bg-white
 rounded-3xl
 shadow-md
-hover:shadow-xl
-transition
 border-l-8
 border-red-500
 p-6
-min-h-[280px]
-flex
-flex-col
-justify-between
 ">
 
 
-                    <div>
+
+                    @if($menungguBayar->count() > 0)
+
+
+
+                    @foreach($menungguBayar as $order)
+
+
+
+                    <div class="mb-8">
+
 
                         <p class="
 text-red-600
@@ -244,51 +252,109 @@ font-black
 text-xl
 ">
 
-                            -
+                            #AGB-{{ $order->id }}
 
                         </p>
+
+
 
 
                         <div class="
 bg-red-50
 rounded-xl
-p-6
-text-center
-mt-5
+p-5
+mt-4
 ">
 
 
-                            <p class="
-text-gray-500
-">
+                            <p class="font-bold text-gray-800">
 
-                                Belum ada transaksi
+                                {{ $order->customer->name }}
 
                             </p>
 
 
+                            <p class="text-gray-500 text-sm">
+
+                                Meja {{ $order->customer->table_number }}
+
+                            </p>
+
+
+
+                            <hr class="my-3">
+
+
+
+                            @foreach($order->items as $item)
+
+
+                            <p class="text-sm mb-2">
+
+                                {{ $item->menu->name }}
+
+                                x{{ $item->quantity }}
+
+                            </p>
+
+
+                            @endforeach
+
+
+
                         </div>
 
-                    </div>
 
 
 
 
-                    <button
-                        class="
+                        <a href="{{ route('pembayaran',$order->id) }}"
+                            class="
+block
 w-full
+mt-6
 py-3
 rounded-xl
 bg-red-600
 text-white
+text-center
 font-bold
 hover:bg-red-700
 transition
 ">
 
-                        Proses Pembayaran
+                            Proses Pembayaran
 
-                    </button>
+                        </a>
+
+
+
+                    </div>
+
+
+
+                    @endforeach
+
+
+
+                    @else
+
+
+
+                    <div class="
+bg-red-50
+rounded-xl
+p-6
+text-center
+">
+
+                        Belum ada transaksi
+
+                    </div>
+
+
+
+                    @endif
 
 
 
@@ -297,26 +363,15 @@ transition
 
             </section>
 
-
-
-
-
-
-
-
-
-            <!-- PEMBAYARAN DIPROSES -->
+            <!-- ==========================
+PEMBAYARAN DIPROSES
+========================== -->
 
 
             <section>
 
 
-                <div class="
-flex
-items-center
-gap-3
-mb-5
-">
+                <div class="flex items-center gap-3 mb-5">
 
 
                     <span class="
@@ -330,11 +385,10 @@ bg-orange-500
                     <h3 class="
 text-xl
 font-black
-text-gray-800
 uppercase
 ">
 
-                        PEMBAYARAN DIPROSES
+                        Pembayaran Diproses
 
                     </h3>
 
@@ -349,53 +403,25 @@ uppercase
 bg-white
 rounded-3xl
 shadow-md
-hover:shadow-xl
-transition
 border-l-8
 border-orange-500
 p-6
-min-h-[280px]
-flex
-flex-col
-justify-between
 ">
 
 
-                    <div>
 
-
-                        <p class="
-text-orange-600
-font-black
-text-xl
-">
-
-                            -
-
-                        </p>
-
-
-
-                        <div class="
+                    <div class="
 bg-orange-50
 rounded-xl
 p-6
 text-center
-mt-5
 ">
 
+                        <p class="text-gray-500">
 
-                            <p class="
-text-gray-500
-">
+                            Transaksi sedang diproses
 
-                                Transaksi sedang diproses
-
-                            </p>
-
-
-                        </div>
-
+                        </p>
 
 
                     </div>
@@ -403,20 +429,19 @@ text-gray-500
 
 
 
-
-                    <button
-                        class="
-w-full
-py-3
-rounded-xl
+                    <div class="
+mt-6
 bg-orange-100
 text-orange-600
+rounded-xl
+py-3
+text-center
 font-bold
 ">
 
                         Menunggu Konfirmasi
 
-                    </button>
+                    </div>
 
 
 
@@ -434,18 +459,15 @@ font-bold
 
 
 
-            <!-- PEMBAYARAN SELESAI -->
+            <!-- ==========================
+PEMBAYARAN SELESAI
+========================== -->
 
 
             <section>
 
 
-                <div class="
-flex
-items-center
-gap-3
-mb-5
-">
+                <div class="flex items-center gap-3 mb-5">
 
 
                     <span class="
@@ -459,11 +481,10 @@ bg-green-500
                     <h3 class="
 text-xl
 font-black
-text-gray-800
 uppercase
 ">
 
-                        PEMBAYARAN SELESAI
+                        Pembayaran Selesai
 
                     </h3>
 
@@ -478,19 +499,24 @@ uppercase
 bg-white
 rounded-3xl
 shadow-md
-hover:shadow-xl
-transition
 border-l-8
 border-green-500
 p-6
-min-h-[280px]
-flex
-flex-col
-justify-between
 ">
 
 
-                    <div>
+
+
+
+                    @if($pembayaranSelesai->count() > 0)
+
+
+
+                    @foreach($pembayaranSelesai as $order)
+
+
+
+                    <div class="mb-6">
 
 
                         <p class="
@@ -499,39 +525,93 @@ font-black
 text-xl
 ">
 
-                            -
+                            #AGB-{{ $order->id }}
 
                         </p>
+
 
 
 
                         <div class="
 bg-green-50
 rounded-xl
-p-6
-text-center
-mt-5
+p-5
+mt-4
 ">
 
 
-                            <p class="
-text-gray-500
-">
+                            <p class="font-bold text-gray-800">
 
-                                Belum ada pembayaran selesai
+                                {{ $order->customer->name }}
 
                             </p>
 
 
+
+                            <p class="text-gray-500 text-sm">
+
+                                Meja {{ $order->customer->table_number }}
+
+                            </p>
+
+
+
+                            @if(isset($order->payment_method))
+
+
+                            <p class="
+text-green-600
+font-bold
+text-sm
+mt-3
+">
+
+                                Metode:
+                                {{ $order->payment_method }}
+
+                            </p>
+
+
+                            @endif
+
+
+
                         </div>
+
 
 
                     </div>
 
 
 
+                    @endforeach
+
+
+
+                    @else
+
+
+
+                    <div class="
+bg-green-50
+rounded-xl
+p-6
+text-center
+">
+
+                        Belum ada pembayaran selesai
+
+                    </div>
+
+
+
+                    @endif
+
+
+
 
                 </div>
+
 
 
             </section>
@@ -540,12 +620,17 @@ text-gray-500
 
 
 
+
+
         </main>
+
 
 
     </div>
 
 
+
 </body>
+
 
 </html>

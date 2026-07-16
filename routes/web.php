@@ -168,3 +168,42 @@ Route::get(
     '/dashboard/kasir',
     [LoginController::class, 'dashboardKasir']
 )->name('dashboard.kasir');
+
+
+Route::post(
+    '/pesanan/{id}/konfirmasi',
+    [LoginController::class, 'konfirmasiPesanan']
+)->name('pesanan.konfirmasi');
+
+
+Route::post(
+    '/pesanan/{id}/mulai-masak',
+    [LoginController::class, 'mulaiMasak']
+)->name('pesanan.mulaiMasak');
+
+
+Route::post(
+    '/pesanan/{id}/selesai-masak',
+    [LoginController::class, 'selesaiMasak']
+)
+    ->name('pesanan.selesaiMasak');
+
+
+Route::post(
+    '/pesanan/{id}/antar',
+    [LoginController::class, 'antarPesanan']
+)
+    ->name('pesanan.antar');
+
+
+Route::get(
+    '/pembayaran/{id}',
+    [LoginController::class, 'halamanPembayaran']
+)
+    ->name('pembayaran');
+
+Route::post(
+    '/pembayaran/{id}/selesai',
+    [LoginController::class, 'pembayaranSelesai']
+)
+    ->name('pembayaran.selesai');

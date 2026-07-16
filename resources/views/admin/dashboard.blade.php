@@ -55,7 +55,7 @@
         <div class="card card-metric p-4 h-100">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h6 class="text-uppercase fw-bold text-muted small mb-1">Pelanggan Unik</h6>
+                    <h6 class="text-uppercase fw-bold text-muted small mb-1">Pelanggan</h6>
                     <h3 class="fw-bold mb-0" style="color: #c92c2c;">{{ $pelangganUnik }} Orang</h3>
                 </div>
                 <i class="fa-solid fa-users fa-2x text-danger"></i>
@@ -137,7 +137,7 @@
                         <tr>
                             <td>
                                 <strong class="text-dark small d-block">{{ $pesanan->customer_name }}</strong>
-                                <span class="text-muted" style="font-size: 10px;">{{ $pesanan->created_at->isoFormat('D MMMM Y, H:i') }} WIB</span>
+                                <span class="text-muted" style="font-size: 10px;">{{ $pesanan->created_at->isoFormat('D MMMM Y, HH:mm') }} WIB</span>
                             </td>
                             <td class="text-center"><span class="badge bg-warning text-dark px-2 py-1 fw-bold" style="font-size: 11px;">{{ $pesanan->table_number }}</span></td>
                             <td><strong class="text-success small">Rp {{ number_format($pesanan->total_price, 0, ',', '.') }}</strong></td>
