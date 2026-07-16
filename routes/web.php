@@ -1,6 +1,5 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
@@ -32,14 +31,6 @@ Route::post('/kasir/bayar/{id_pembayaran}', [PembayaranController::class, 'prose
 // PANEL DAPUR: Pengendali Status Masakan Koki
 Route::get('/dapur', [PesananController::class, 'indexDapur'])->name('dapur.index');
 Route::post('/dapur/update/{id_pesanan}', [PesananController::class, 'updateDapur'])->name('dapur.update');
-=======
-use App\Http\Controllers\OrderSystemController;
-use Illuminate\Support\Facades\Route;
-
-// KITA PENGKAUM KEMBALI KE URL /login YANG NORMAL
-Route::get('/', function() {
-    return redirect('/login');
-});
 
 Route::get('/login', [OrderSystemController::class, 'showLogin'])->name('login');
 Route::post('/login', [OrderSystemController::class, 'processLogin'])->name('login.process');
@@ -61,4 +52,3 @@ Route::middleware(['web'])->group(function () {
         return redirect('/login'); // Lempar balik ke login awal
     })->name('logout');
 });
->>>>>>> c3c11e12d80f15e54e43ee6aa0eba709ceb142ac
