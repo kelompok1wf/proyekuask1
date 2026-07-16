@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
@@ -31,3 +32,33 @@ Route::post('/kasir/bayar/{id_pembayaran}', [PembayaranController::class, 'prose
 // PANEL DAPUR: Pengendali Status Masakan Koki
 Route::get('/dapur', [PesananController::class, 'indexDapur'])->name('dapur.index');
 Route::post('/dapur/update/{id_pesanan}', [PesananController::class, 'updateDapur'])->name('dapur.update');
+=======
+use App\Http\Controllers\OrderSystemController;
+use Illuminate\Support\Facades\Route;
+
+// KITA PENGKAUM KEMBALI KE URL /login YANG NORMAL
+Route::get('/', function() {
+    return redirect('/login');
+});
+
+Route::get('/login', [OrderSystemController::class, 'showLogin'])->name('login');
+Route::post('/login', [OrderSystemController::class, 'processLogin'])->name('login.process');
+
+// Rute Aplikasi
+Route::middleware(['web'])->group(function () {
+    Route::get('/menu', [OrderSystemController::class, 'showMenu'])->name('menu');
+    Route::post('/cart/add', [OrderSystemController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/update', [OrderSystemController::class, 'updateCart'])->name('cart.update');
+    Route::post('/cart/update/{id}', [OrderSystemController::class, 'updateCart']);
+    
+    Route::get('/checkout', [OrderSystemController::class, 'showCheckout'])->name('checkout');
+    Route::post('/checkout/process', [OrderSystemController::class, 'processOrder'])->name('checkout.process');
+    Route::get('/receipt/{id}', [OrderSystemController::class, 'showReceipt'])->name('receipt');
+    
+    // TOMBOL LOGOUT TOTAL DENGAN FLUSH SESSION
+    Route::get('/logout', function () {
+        session()->flush(); // Mengosongkan SEMUA session (termasuk nadita & keranjang) tanpa sisa!
+        return redirect('/login'); // Lempar balik ke login awal
+    })->name('logout');
+});
+>>>>>>> c3c11e12d80f15e54e43ee6aa0eba709ceb142ac
